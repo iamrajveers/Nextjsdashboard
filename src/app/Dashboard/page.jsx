@@ -1,27 +1,12 @@
+"use client";
+import React from 'react'
 
-
-import React from "react";
-
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] }); // ✅ ADD THIS
-
-import Home from "./components/Home";
-
-export const metadata={
-  title: "Homepage"
-
-}
-export default function Homepage() {
+const Dashboard = () => {
   return (
+
   <>
-    
-
-
-
-
-
-         
+  
+  
   <div class="p-6 bg-white rounded-md shadow border border-gray-100">
   {/* <!-- Top Controls --> */}
   <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
@@ -99,10 +84,17 @@ export default function Homepage() {
   </div>
 </div>
 
+  
+  
+  
+  </>
+
+    
 
 
-
-     
-     </>
-  );
+  )
 }
+
+export default Dashboard
+
+

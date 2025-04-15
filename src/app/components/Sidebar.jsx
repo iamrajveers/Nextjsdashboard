@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -16,16 +17,13 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-
-
-
 const Sidebar = ({ collapsed }) => {
   const [openTransactions, setOpenTransactions] = useState(true);
   const [openReports, setOpenReports] = useState(false);
 
   return (
     <aside
-      className={` h-screen bg-white shadow-md p-4 flex flex-col border-r transition-all duration-300 ${
+      className={`h-screen bg-white shadow-md p-4 flex flex-col border-r transition-all duration-300 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
@@ -41,11 +39,36 @@ const Sidebar = ({ collapsed }) => {
 
       {/* Navigation */}
       <nav className="flex flex-col space-y-4 text-gray-700 text-sm">
-        <NavItem icon={<Home size={18} />} label="Projects Dashboard" collapsed={collapsed} />
-        <NavItem icon={<ListTodo size={18} />} label="To Do" collapsed={collapsed} />
-        <NavItem icon={<MessageCircle size={18} />} label="Conversation" collapsed={collapsed} />
-        <NavItem icon={<MapPin size={18} />} label="Location" collapsed={collapsed} />
-        <NavItem icon={<FileImage size={18} />} label="Design Files" collapsed={collapsed} />
+        <NavItem
+          icon={<Home size={18} />}
+          label="Projects Dashboard"
+          href="/Dashboard"
+          collapsed={collapsed}
+        />
+        <NavItem
+          icon={<ListTodo size={18} />}
+          label="To Do"
+          href="/todo"
+          collapsed={collapsed}
+        />
+        <NavItem
+          icon={<MessageCircle size={18} />}
+          label="Conversation"
+          href="/conversation"
+          collapsed={collapsed}
+        />
+        <NavItem
+          icon={<MapPin size={18} />}
+          label="Location"
+          href="/loction"
+          collapsed={collapsed}
+        />
+        <NavItem
+          icon={<FileImage size={18} />}
+          label="Design Files"
+          href="/design-files"
+          collapsed={collapsed}
+        />
 
         {/* Transactions Dropdown */}
         <Dropdown
@@ -55,11 +78,11 @@ const Sidebar = ({ collapsed }) => {
           onToggle={() => setOpenTransactions(!openTransactions)}
           collapsed={collapsed}
           items={[
-            "Estimates",
-            "Sales Orders",
-            "Invoices",
-            "Retainer Invoices",
-            "Payments",
+            { name: "Estimates", href: "/transactions/estimates" },
+            { name: "Sales Orders", href: "/transactions/sales-orders" },
+            { name: "Invoices", href: "/transactions/invoices" },
+            { name: "Retainer Invoices", href: "/transactions/retainer-invoices" },
+            { name: "Payments", href: "/transactions/payments" },
           ]}
         />
 
@@ -70,20 +93,33 @@ const Sidebar = ({ collapsed }) => {
           isOpen={openReports}
           onToggle={() => setOpenReports(!openReports)}
           collapsed={collapsed}
-          items={["Report 1", "Report 2"]}
+          items={[
+            { name: "Report 1", href: "/reports/report1" },
+            { name: "Report 2", href: "/reports/report2" },
+          ]}
         />
 
-        <NavItem icon={<Cog size={18} />} label="Account" collapsed={collapsed} />
-        <NavItem icon={<Users size={18} />} label="Users" collapsed={collapsed} />
+        <NavItem
+          icon={<Cog size={18} />}
+          label="Account"
+          href="/account"
+          collapsed={collapsed}
+        />
+        <NavItem
+          icon={<Users size={18} />}
+          label="Users"
+          href="/users"
+          collapsed={collapsed}
+        />
       </nav>
     </aside>
   );
 };
 
 // NavItem Component
-const NavItem = ({ icon, label, collapsed }) => (
+const NavItem = ({ icon, label, href, collapsed }) => (
   <Link
-    href="#"
+    href={href}
     className="flex items-center space-x-3 hover:text-black transition-all duration-200"
   >
     <div className="min-w-[20px]">{icon}</div>
@@ -106,11 +142,12 @@ const Dropdown = ({ icon, label, isOpen, onToggle, collapsed, items }) => (
         </>
       )}
     </button>
+
     {!collapsed && isOpen && (
       <ul className="ml-7 mt-2 list-disc text-sm text-blue-500 space-y-1">
         {items.map((item, index) => (
           <li key={index}>
-            <Link href="#">{item}</Link>
+            <Link href={item.href}>{item.name}</Link>
           </li>
         ))}
       </ul>
@@ -119,8 +156,3 @@ const Dropdown = ({ icon, label, isOpen, onToggle, collapsed, items }) => (
 );
 
 export default Sidebar;
-
-
-
-
-
